@@ -11,4 +11,6 @@ const app = (
             <Route component={Error404} />
         </Switch>
     </BrowserRouter>);
+let locale = document.getElementById("locale").value;
+localStorage.setItem("locale", locale === undefined ? "en":locale);
 ReactDOM.render(app, document.getElementById("root"));

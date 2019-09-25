@@ -10,5 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::view('{path?}', 'index');
+Route::group(['middleware' => ['localizer']], function () {
+    Route::view('{path?}', 'index');
+});
