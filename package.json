@@ -9,9 +9,11 @@
         "@babel/core": "^7.6.2",
         "@babel/preset-env": "^7.6.2",
         "@babel/preset-react": "^7.0.0",
+        "i18next": "^17.0.16",
         "react": "^16.9.0",
         "react-dom": "^16.9.0",
         "react-hot-loader": "^4.12.14",
+        "react-i18next": "^10.13.0",
         "react-router-dom": "^5.0.1"
     },
     "devDependencies": {

@@ -38,7 +38,6 @@ class Localizer
             echo "cURL Error #:" . $err;
         } else {
             App::setLocale($response["data"]["language"]);
-            echo("<input id='locale' type='hidden' value='".$response["data"]["language"]."'></div>");
         }
 
         return $next($request);
