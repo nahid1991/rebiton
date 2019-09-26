@@ -4,7 +4,7 @@ import { withTranslation, Trans } from "react-i18next";
 
 class Error404 extends Component {
     render() {
-        const { t, i18n } = this.props;
+        const { t } = this.props;
         return (
             <div>
                 <pre>Error 404.</pre>
