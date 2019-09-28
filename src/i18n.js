@@ -8,6 +8,7 @@ i18n.init({
     resources: {
         en: {
             translations: {
+                "Rebiton": "Rebiton",
                 "Hi": "Hi",
                 "This is rebiton": "This is rebiton",
                 "You must be lost!": "You must be lost!",
@@ -17,6 +18,7 @@ i18n.init({
         },
         bn: {
             translations: {
+                "Rebtion": "রিবিটন ",
                 "Hi": "ওহে",
                 "This is rebiton": "এটি রিবিটন",
                 "You must be lost!": "আপনি কি হারিয়েছেন?",
