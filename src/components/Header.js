@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Navbar, Nav, NavDropdown, Form, FormControl, Button} from "react-bootstrap";
 import { withTranslation, Trans } from "react-i18next";
 import {Link} from "react-router-dom";
+import {hot} from "react-hot-loader";
 
 class Header extends Component {
     render() {
@@ -31,4 +32,4 @@ class Header extends Component {
     }
 }
 
-export default Header;
+export default hot(module)(withTranslation("translations")(Header));
