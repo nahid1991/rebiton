@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Header from "./Header";
 import Container from "react-bootstrap/Container";
 import {Button, Card, Col, Form, Row} from "react-bootstrap";
+import axios from "axios";
 
 class Register extends Component {
     constructor(props) {
@@ -35,7 +36,14 @@ class Register extends Component {
 
     handleRegistrationSubmission(event) {
         event.preventDefault();
-        console.log(this.state);
+        axios.post("http://localhost:8000/api/v1/register", this.state)
+            .then(function(response) {
+                console.log(response.data);
+            })
+            .catch(function(err) {
+                alert("something went wrong!");
+                console.log(err);
+            });
     }
 
     render() {

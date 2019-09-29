@@ -9,6 +9,15 @@ use Illuminate\Support\Facades\Auth;
 class APIAuthController extends Controller
 {
     public function register(Request $request) {
-        echo(Auth::attempt(['email' => $request->get('email'), 'password' => $request->get('password')], false));
+        try {
+            $response = Auth::register($request->all());
+            return json_encode($response);
+        } catch (\Exception $e) {
+            return json_encode(["error" => $e]);
+        }
+    }
+
+    public function login(Request $request) {
+
     }
 }

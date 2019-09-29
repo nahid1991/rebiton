@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Helpers\APIHandler;
 use Closure;
 use Illuminate\Support\Facades\App;
 
@@ -16,28 +17,13 @@ class Localizer
      */
     public function handle($request, Closure $next)
     {
-        $curl = curl_init();
+        $apiHandler = new APIHandler("https://exercise.api.rebiton.com/language");
+        $response = $apiHandler->call();
 
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://exercise.api.rebiton.com/language",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_TIMEOUT => 30000,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_HTTPHEADER => array(
-                // Set Here Your Requesred Headers
-                'Content-Type: application/json',
-            ),
-        ));
-        $response = json_decode(curl_exec($curl), true);
-        $err = curl_error($curl);
-        curl_close($curl);
-
-        if ($err) {
-            echo "cURL Error #:" . $err;
+        if ($response['err']) {
+            echo "cURL Error #:" . $response['err'];
         } else {
-            App::setLocale($response["data"]["language"]);
+            App::setLocale($response["response"]["data"]["language"]);
         }
 
         return $next($request);

@@ -2,6 +2,8 @@
 
 
 namespace App\Http\Guard;
+
+use App\Http\Helpers\APIHandler;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
@@ -40,7 +42,7 @@ class CustomAuthGuard implements Guard
      * @return \Illuminate\Contracts\Auth\Authenticatable|null
      */
     public function user() {
-        return $this->user ?: $this->attempt();
+        return $this->user;
     }
 
     /**
@@ -74,9 +76,33 @@ class CustomAuthGuard implements Guard
         return $this;
     }
 
-    protected function attempt()
+    public function attempt($credentials)
     {
         // Implement your logic here
         // Return User on success, or return null on failure
+        return $credentials['email'];
+    }
+
+    public function register($credentials) {
+        $regApiHandler = new APIHandler("https://exercise.api.rebiton.com/auth/register", $customRequest = "POST",
+            $postFields = $credentials);
+        $response = $regApiHandler->call();
+        if ($response['err']) {
+            throw new \Exception($response['err']);
+        }
+//        $this->raiseException($response);
+        $response = json_decode($response, true);
+        $token = $response['token'];
+        $userApiHandler = new APIHandler("https://exercise.api.rebiton.com/user", $customRequest = "GET",
+            $httpHeader = array(
+                // Set Here Your Requested Headers
+                'Content-Type: application/json',
+                'Authorization: '.$response['data']['token_type'].' '.$response['token']
+            ));
+        $response = $userApiHandler->call();
+//        $this->raiseException($response);
+        $response = json_decode($response, true);
+        $response['data']['token'] = $token;
+        return $response;
     }
 }
