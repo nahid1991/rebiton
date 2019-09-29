@@ -40,7 +40,7 @@ class CustomAuthGuard implements Guard
      * @return \Illuminate\Contracts\Auth\Authenticatable|null
      */
     public function user() {
-        return $this->user ?: $this->signInWithEmailPassword();
+        return $this->user ?: $this->attempt();
     }
 
     /**
@@ -67,14 +67,14 @@ class CustomAuthGuard implements Guard
      * Set the current user.
      *
      * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
-     * @return void
+     * @return CustomAuthGuard
      */
     public function setUser(Authenticatable $user) {
         $this->user = $user;
         return $this;
     }
 
-    protected function signInWithEmailPassword()
+    protected function attempt()
     {
         // Implement your logic here
         // Return User on success, or return null on failure
